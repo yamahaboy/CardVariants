@@ -16,6 +16,7 @@ export const CardList: React.FC = () => {
           text={card.text}
           variant={card.variant}
           isLiked={card.isLiked}
+          setIsLiked={card.setIsLiked}
         />
       ))}
     </CardListContainer>
