@@ -1,11 +1,12 @@
-import { datesForCards } from "../../dates/datesForCard";
-import { Card } from "../Card/Card";
+import { datesForCards } from "../../../dates/datesForCard";
+import { Card } from "../../../containers/Card/Card";
+import { CardListContainer } from "./styles";
 
 export const CardList: React.FC = () => {
   const cardData = datesForCards();
-  console.log(cardData);
+
   return (
-    <div>
+    <CardListContainer>
       {cardData.map((card) => (
         <Card
           key={card.id}
@@ -15,9 +16,8 @@ export const CardList: React.FC = () => {
           text={card.text}
           variant={card.variant}
           isLiked={card.isLiked}
-          setIsLiked={card.setIsLiked}
         />
       ))}
-    </div>
+    </CardListContainer>
   );
 };

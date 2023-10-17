@@ -1,11 +1,11 @@
 import { CardSize } from "./CardSize";
 
 export type CardProps = {
-  isLiked: any;
-  setIsLiked: any;
   id: number;
   title: string;
   imgSrc: string;
   text: string;
   variant: CardSize;
+  isLiked: boolean | null;
+  setIsLiked?: (id: number, isLiked: boolean | null) => void;
 };
