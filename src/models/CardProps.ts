@@ -6,6 +6,6 @@ export type CardProps = {
   imgSrc: string;
   text: string;
   variant: CardSize;
-  isLiked: boolean | null;
-  setIsLiked?: (id: number, isLiked: boolean | null) => void;
+  isLiked?: boolean | null;
+  setIsLiked?: (id: number, isLiked: boolean) => void;
 };

@@ -30,40 +30,34 @@ interface BookIconProps {
 
 export const Card: React.FC<CardProps> = (props) => {
   const { id, title, imgSrc, text, variant, isLiked, setIsLiked } = props;
-  console.log("isLiked", isLiked);
-  console.log("setIsLiked", setIsLiked);
   const [localIsLiked, setLocalIsLiked] = useState<boolean | null>(
     isLiked || null
   );
+
   const [isBookmarked, setIsBookmarked] = useState(false);
 
   const handleLikeClick = () => {
-    setLocalIsLiked((prevIsLiked) => {
-      if (prevIsLiked === true) {
-        return null;
-      } else {
-        return true;
-      }
-    });
+    console.log("Like", id);
+    console.log("isLiked", isLiked);
+    console.log("setIsLiked", setIsLiked);
     if (setIsLiked) {
-      setIsLiked(id, localIsLiked === true ? localIsLiked : null);
+      setIsLiked(id, true);
+      console.log("isLiked", isLiked);
+      console.log("setIsLiked", setIsLiked);
     }
-  };
-  const handleDislikeClick = () => {
-    setLocalIsLiked((prevIsLiked) => {
-      if (prevIsLiked === false) {
-        return null;
-      } else {
-        return false;
-      }
-    });
-    if (setIsLiked) {
-      setIsLiked(id, localIsLiked === false ? localIsLiked : null);
-    }
+    setLocalIsLiked(true);
   };
 
-  const handleBookmarkClick = () => {
-    setIsBookmarked((prevIsBookmarked) => !prevIsBookmarked);
+  const handleDislikeClick = () => {
+    console.log("Dislike", id);
+    console.log("isLiked", isLiked);
+    console.log("setIsLiked", setIsLiked);
+    if (setIsLiked) {
+      setIsLiked(id, false);
+      console.log("isLiked", isLiked);
+      console.log("setIsLiked", setIsLiked);
+    }
+    setLocalIsLiked(false);
   };
 
   const LikeIcon: React.FC<LikeIconProps> = ({ isLiked, onClick }) => {
@@ -81,6 +75,10 @@ export const Card: React.FC<CardProps> = (props) => {
         style={{ color: isLiked === false ? "#fff700" : "#000" }}
       />
     );
+  };
+
+  const handleBookmarkClick = () => {
+    setIsBookmarked((prevIsBookmarked) => !prevIsBookmarked);
   };
 
   const BookmarkIcon: React.FC<BookIconProps> = ({ isBookmarked, onClick }) => {
