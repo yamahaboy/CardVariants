@@ -57,26 +57,14 @@ export const CardText = styled.div`
 export const CardImage = styled.div<{
   variant: "large" | "medium" | "small";
 }>`
-  min-width: ${({ variant }) => {
-    if (variant === "large") return "200px";
-    if (variant === "medium") return "390px";
-    if (variant === "small") return "80px";
-    return "100%";
-  }};
-  max-width: ${({ variant }) => {
+  width: ${({ variant }) => {
     if (variant === "large") return "200px";
     if (variant === "medium") return "390px";
     if (variant === "small") return "80px";
     return "100%";
   }};
 
-  min-height: ${({ variant }) => {
-    if (variant === "large") return "200px";
-    if (variant === "medium") return "130px";
-    if (variant === "small") return "80px";
-    return "100%";
-  }};
-  max-height: ${({ variant }) => {
+  height: ${({ variant }) => {
     if (variant === "large") return "200px";
     if (variant === "medium") return "130px";
     if (variant === "small") return "80px";
@@ -88,7 +76,7 @@ export const Img = styled.img<{
   variant: "large" | "medium" | "small";
 }>`
   width: 100%;
-  height: ${({ variant }) => (variant === "medium" ? "130px" : "100%")};
+  height: 100%;
 `;
 
 export const ButtonBlock = styled.div`
