@@ -1,4 +1,5 @@
 import { Card } from "../../../containers/Card/Card";
+import { Header } from "../../../containers/Header/Header";
 import { useLikedCards } from "../../../store/LikedCardsContext";
 import { LikedCards } from "./styles";
 
@@ -7,6 +8,7 @@ export const Featured: React.FC = () => {
 
   return (
     <>
+      <Header />
       <h1>Featured Cards</h1>
       <LikedCards>
         {likedCards.map((card) => (
