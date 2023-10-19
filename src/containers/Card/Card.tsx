@@ -37,25 +37,15 @@ export const Card: React.FC<CardProps> = (props) => {
   const [isBookmarked, setIsBookmarked] = useState(false);
 
   const handleLikeClick = () => {
-    console.log("Like", id);
-    console.log("isLiked", isLiked);
-    console.log("setIsLiked", setIsLiked);
     if (setIsLiked) {
       setIsLiked(id, true);
-      console.log("isLiked", isLiked);
-      console.log("setIsLiked", setIsLiked);
     }
     setLocalIsLiked(true);
   };
 
   const handleDislikeClick = () => {
-    console.log("Dislike", id);
-    console.log("isLiked", isLiked);
-    console.log("setIsLiked", setIsLiked);
     if (setIsLiked) {
       setIsLiked(id, false);
-      console.log("isLiked", isLiked);
-      console.log("setIsLiked", setIsLiked);
     }
     setLocalIsLiked(false);
   };

@@ -4,6 +4,7 @@ import { ROUTES } from "./Routes";
 
 import { CardList } from "../CardList/CardList";
 import { CardPage } from "../CardPage/CardPage";
+import { Featured } from "../Featured/Featured";
 
 export const appRouter = createBrowserRouter([
   {
@@ -13,5 +14,9 @@ export const appRouter = createBrowserRouter([
   {
     path: `${ROUTES.CardPage}/:id`,
     element: <CardPage />,
+  },
+  {
+    path: ROUTES.Featured,
+    element: <Featured />,
   },
 ]);

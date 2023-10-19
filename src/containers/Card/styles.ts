@@ -70,6 +70,20 @@ export const CardImage = styled.div<{
     if (variant === "small") return "80px";
     return "100%";
   }};
+
+  min-width: ${({ variant }) => {
+    if (variant === "large") return "200px";
+    if (variant === "medium") return "390px";
+    if (variant === "small") return "80px";
+    return "100%";
+  }};
+
+  min-height: ${({ variant }) => {
+    if (variant === "large") return "200px";
+    if (variant === "medium") return "130px";
+    if (variant === "small") return "80px";
+    return "100%";
+  }};
 `;
 
 export const Img = styled.img<{
