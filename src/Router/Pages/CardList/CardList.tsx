@@ -20,7 +20,9 @@ export const CardList: React.FC = () => {
     );
 
     if (newLikeValue) {
-      const likedCard = cardData.find((card) => card.id === cardId);
+      const likedCard = cardData.find(
+        (card: { id: number }) => card.id === cardId
+      );
 
       const checkOnDuplication = likedCards.some((card) => card.id === cardId);
 
@@ -34,7 +36,8 @@ export const CardList: React.FC = () => {
 
   useEffect(() => {
     setCards(cardData);
-  }, []);
+  }, [cardData]);
+
   return (
     <>
       <Header />
