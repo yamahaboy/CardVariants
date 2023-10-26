@@ -30,24 +30,24 @@ interface BookIconProps {
 
 export const Card: React.FC<CardProps> = (props) => {
   const { id, title, imgSrc, text, variant, isLiked, setIsLiked } = props;
-  const [localIsLiked, setLocalIsLiked] = useState<boolean | null>(
-    isLiked || null
-  );
+  // const [localIsLiked, setLocalIsLiked] = useState<boolean | null>(
+  //   isLiked || null
+  // );
 
   const [isBookmarked, setIsBookmarked] = useState(false);
 
   const handleLikeClick = () => {
-    if (setIsLiked) {
-      setIsLiked(id, true);
-    }
-    setLocalIsLiked(true);
+    // if (setIsLiked) {
+    setIsLiked && setIsLiked(id, true);
+    //}
+    //setLocalIsLiked(true);
   };
 
   const handleDislikeClick = () => {
-    if (setIsLiked) {
-      setIsLiked(id, false);
-    }
-    setLocalIsLiked(false);
+    // if (setIsLiked) {
+    setIsLiked && setIsLiked(id, false);
+    // }
+    // setLocalIsLiked(false);
   };
 
   const LikeIcon: React.FC<LikeIconProps> = ({ isLiked, onClick }) => {
@@ -110,8 +110,8 @@ export const Card: React.FC<CardProps> = (props) => {
       </NavLink>
       <ButtonBlock>
         <GapContainer>
-          <LikeIcon isLiked={localIsLiked} onClick={handleLikeClick} />
-          <DisLikeIcon isLiked={localIsLiked} onClick={handleDislikeClick} />
+          <LikeIcon isLiked={isLiked} onClick={handleLikeClick} />
+          <DisLikeIcon isLiked={isLiked} onClick={handleDislikeClick} />
         </GapContainer>
         <GapContainer>
           <BookmarkIcon
