@@ -7,18 +7,33 @@ import { Box, IconButton } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import CardAutoComplete from "../CardAutoComplete/CardAutoComplete";
 import { useState } from "react";
+import MenuIcon from "@mui/icons-material/Menu";
+import DrawerMenu from "../Drawer/Drawer";
 
 export const Header = () => {
   const navigateToHomePage = useNavigate();
   const location = useLocation();
   const [selectedTitle, setSelectedTitle] = useState<string | null>(null);
+  const [isDrawerOpen, setisDrawerOpen] = useState(false);
 
   const handleBackHomePage = () => {
     navigateToHomePage(-1);
   };
 
+  const handleDrawerIsOpen = () => {
+    setisDrawerOpen(true);
+  };
+
+  const handleDrawerIsClose = () => {
+    setisDrawerOpen(false);
+  };
   return (
     <HeaderStyled>
+      <IconButton onClick={handleDrawerIsOpen}>
+        <MenuIcon sx={{ fontSize: "40px" }} />
+      </IconButton>
+      <DrawerMenu isOpen={isDrawerOpen} onClose={handleDrawerIsClose} />
+
       <CardAutoComplete
         selectedTitle={selectedTitle}
         setSelectedTitle={setSelectedTitle}

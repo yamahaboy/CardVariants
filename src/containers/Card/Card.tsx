@@ -4,7 +4,6 @@ import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
 import ThumbDownAltIcon from "@mui/icons-material/ThumbDownAlt";
 import BookmarksIcon from "@mui/icons-material/Bookmarks";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-import { NavLink } from "react-router-dom";
 import {
   StyledCard,
   CardContainer,
@@ -17,6 +16,7 @@ import {
   ButtonBlock,
   GapContainer,
 } from "./styles";
+import CardPage from "../../components/CardPage/CardPage";
 
 interface LikeIconProps {
   isLiked: boolean | null;
@@ -32,6 +32,7 @@ export const Card: React.FC<CardProps> = (props) => {
   const { id, title, imgSrc, text, variant, isLiked, setIsLiked } = props;
 
   const [isBookmarked, setIsBookmarked] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleLikeClick = () => {
     setIsLiked && setIsLiked(id, true);
@@ -39,6 +40,13 @@ export const Card: React.FC<CardProps> = (props) => {
 
   const handleDislikeClick = () => {
     setIsLiked && setIsLiked(id, false);
+  };
+
+  const hableClickOpenModal = () => {
+    setIsModalOpen(true);
+  };
+  const hableClickCloseModal = () => {
+    setIsModalOpen(false);
   };
 
   const LikeIcon: React.FC<LikeIconProps> = ({ isLiked, onClick }) => {
@@ -80,25 +88,20 @@ export const Card: React.FC<CardProps> = (props) => {
 
   return (
     <StyledCard key={id} variant={variant}>
-      <NavLink
-        to={`/cardpage/${id}`}
-        style={{ textDecoration: "none", color: "#000" }}
-      >
-        <CardContainer variant={variant}>
-          <CardInfoContainer>
-            <DateNow>
-              <p>
-                {currentMonth} {currentDay}, {currentYear}
-              </p>
-            </DateNow>
-            <CardTitle variant={variant}>{title}</CardTitle>
-            {variant === "large" && <CardText>{text}</CardText>}
-          </CardInfoContainer>
-          <CardImage variant={variant}>
-            <Img src={imgSrc} variant={variant} />
-          </CardImage>
-        </CardContainer>
-      </NavLink>
+      <CardContainer variant={variant}>
+        <CardInfoContainer>
+          <DateNow>
+            <p>
+              {currentMonth} {currentDay}, {currentYear}
+            </p>
+          </DateNow>
+          <CardTitle variant={variant}>{title}</CardTitle>
+          {variant === "large" && <CardText>{text}</CardText>}
+        </CardInfoContainer>
+        <CardImage variant={variant} onClick={hableClickOpenModal}>
+          <Img src={imgSrc} variant={variant} />
+        </CardImage>
+      </CardContainer>
       <ButtonBlock>
         <GapContainer>
           <LikeIcon isLiked={isLiked} onClick={handleLikeClick} />
@@ -112,6 +115,11 @@ export const Card: React.FC<CardProps> = (props) => {
           <MoreHorizIcon />
         </GapContainer>
       </ButtonBlock>
+      <CardPage
+        open={isModalOpen}
+        onClose={hableClickCloseModal}
+        imageSrc={imgSrc}
+      />
     </StyledCard>
   );
 };

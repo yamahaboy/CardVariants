@@ -2,7 +2,6 @@ import React, { BaseSyntheticEvent } from "react";
 import { Autocomplete, TextField } from "@mui/material";
 import { useAppSelector, useAppDispatch } from "../../store/store";
 import { setCard } from "../../store/reducers/Actions";
-// import { AutoCompleteStyles } from "./styles";
 import { CardProps } from "../../models/CardProps";
 
 interface CardAutoCompleteProps {
@@ -16,7 +15,7 @@ const CardAutoComplete: React.FC<CardAutoCompleteProps> = (props) => {
   const cards: CardProps[] | null = useAppSelector(
     (state) => state.cardReducer.card
   );
-  const userNames: string[] = cards ? cards.map((card) => card.title) : [];
+  const titleNames: string[] = cards ? cards.map((card) => card.title) : [];
 
   const handleNameChange = (
     event: BaseSyntheticEvent,
@@ -28,7 +27,7 @@ const CardAutoComplete: React.FC<CardAutoCompleteProps> = (props) => {
 
   return (
     <Autocomplete
-      options={userNames}
+      options={titleNames}
       value={selectedTitle}
       onChange={handleNameChange}
       renderInput={(params) => <TextField {...params} label="Find Card" />}
