@@ -3,7 +3,7 @@ import { Card } from "../../../containers/Card/Card";
 import { CardListContainer } from "./styles";
 import { useEffect, useState } from "react";
 import { CardProps } from "../../../models/CardProps";
-import { Header } from "../../../containers/Header/Header";
+import { Header } from "../../../components/Header/Header";
 import { useAppDispatch, useAppSelector } from "../../../store/store";
 import { likeCard, removeLikedCard } from "../../../store/reducers/Actions";
 

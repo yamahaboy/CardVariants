@@ -17,7 +17,7 @@ const cardReducer: Reducer<CardReducerType> = (
 ) => {
   switch (action.type) {
     case CardsReducerEnum.SET_CARD:
-      return { ...state, card: action.cardData };
+      return { ...state, card: action.title };
     case CardsReducerEnum.LIKE_Card:
       return { ...state, likeCard: action.likeCardData };
     case CardsReducerEnum.REMOVE_LIKED_CARD:

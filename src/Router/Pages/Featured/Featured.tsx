@@ -1,5 +1,5 @@
 import { Card } from "../../../containers/Card/Card";
-import { Header } from "../../../containers/Header/Header";
+import { Header } from "../../../components/Header/Header";
 import { useAppSelector } from "../../../store/store";
 import { LikedCards } from "./styles";
 
