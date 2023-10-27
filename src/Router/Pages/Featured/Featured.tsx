@@ -1,10 +1,10 @@
 import { Card } from "../../../containers/Card/Card";
 import { Header } from "../../../containers/Header/Header";
-import { useLikedCards } from "../../../store/LikedCardsContext";
+import { useAppSelector } from "../../../store/store";
 import { LikedCards } from "./styles";
 
 export const Featured: React.FC = () => {
-  const { likedCards } = useLikedCards();
+  const likedCards = useAppSelector((state) => state.cardReducer.likeCard);
 
   return (
     <>

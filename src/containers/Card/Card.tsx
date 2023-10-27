@@ -30,24 +30,15 @@ interface BookIconProps {
 
 export const Card: React.FC<CardProps> = (props) => {
   const { id, title, imgSrc, text, variant, isLiked, setIsLiked } = props;
-  // const [localIsLiked, setLocalIsLiked] = useState<boolean | null>(
-  //   isLiked || null
-  // );
 
   const [isBookmarked, setIsBookmarked] = useState(false);
 
   const handleLikeClick = () => {
-    // if (setIsLiked) {
     setIsLiked && setIsLiked(id, true);
-    //}
-    //setLocalIsLiked(true);
   };
 
   const handleDislikeClick = () => {
-    // if (setIsLiked) {
     setIsLiked && setIsLiked(id, false);
-    // }
-    // setLocalIsLiked(false);
   };
 
   const LikeIcon: React.FC<LikeIconProps> = ({ isLiked, onClick }) => {
