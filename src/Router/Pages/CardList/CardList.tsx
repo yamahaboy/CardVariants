@@ -5,7 +5,8 @@ import { useEffect, useState } from "react";
 import { CardProps } from "../../../models/CardProps";
 import { Header } from "../../../components/Header/Header";
 import { useAppDispatch, useAppSelector } from "../../../store/store";
-import { likeCard, removeLikedCard } from "../../../store/reducers/Actions";
+import { likeCard } from "../../../store/reducers/Actions";
+import { Box } from "@mui/material";
 
 export const CardList: React.FC = () => {
   const likedCards = useAppSelector((state) => state.cardReducer.likeCard);
@@ -15,32 +16,26 @@ export const CardList: React.FC = () => {
   const [cards, setCards] = useState<CardProps[]>([]);
 
   const handleLikeControl = (cardId: number, newLikeValue: boolean) => {
-    setCards((prevCards) =>
-      prevCards.map((card) =>
-        card.id === cardId ? { ...card, isLiked: newLikeValue } : card
-      )
-    );
-
     if (newLikeValue) {
-      const findlikedCard = cardData.find((card) => card.id === cardId);
-
+      const findLikedCard = cardData.find((card) => card.id === cardId);
       const checkOnDuplication = likedCards.some((card) => card.id === cardId);
 
-      if (findlikedCard && !checkOnDuplication) {
-        dispatch(likeCard([findlikedCard]));
-        console.log(likedCards);
+      if (findLikedCard && !checkOnDuplication) {
+        const updatedLikeCard = [...likedCards, findLikedCard];
+        dispatch(likeCard(updatedLikeCard));
       }
     } else {
-      dispatch(removeLikedCard(cardId));
+      const updatedLikeCard = likedCards.filter((card) => card.id !== cardId);
+      dispatch(likeCard(updatedLikeCard));
     }
   };
+
   useEffect(() => {
     setCards(cardData);
-    console.log("set");
   }, []);
 
   return (
-    <>
+    <Box sx={{ backgroundColor: "#cfcfcf" }}>
       <Header />
       <CardListContainer>
         {cards.map((card) => (
@@ -56,6 +51,6 @@ export const CardList: React.FC = () => {
           />
         ))}
       </CardListContainer>
-    </>
+    </Box>
   );
 };

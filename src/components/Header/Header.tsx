@@ -30,7 +30,7 @@ export const Header = () => {
   return (
     <HeaderStyled>
       <IconButton onClick={handleDrawerIsOpen}>
-        <MenuIcon sx={{ fontSize: "40px" }} />
+        <MenuIcon sx={{ fontSize: "40px", color: "#000" }} />
       </IconButton>
       <DrawerMenu isOpen={isDrawerOpen} onClose={handleDrawerIsClose} />
 
@@ -55,7 +55,7 @@ export const Header = () => {
             </IconButton>
           )}
           <IconButton>
-            <StarBorderIcon sx={{ fontSize: "30px", color: "#9D0DBD" }} />
+            <StarBorderIcon sx={{ fontSize: "30px", color: "#F2933A" }} />
           </IconButton>
         </Box>
       </NavLink>

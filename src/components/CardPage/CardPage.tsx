@@ -33,7 +33,7 @@ const CardPage: React.FC<ModalWindowProps> = (props) => {
             right: "0",
           }}
         >
-          <CloseIcon sx={{ fontSize: "40px" }} />
+          <CloseIcon sx={{ fontSize: "40px", color: "#000" }} />
         </IconButton>
         <img src={imageSrc} style={{ width: "100%", height: "auto" }} />
       </Box>

@@ -101,5 +101,7 @@ export const ButtonBlock = styled.div`
 
 export const GapContainer = styled.div`
   display: flex;
+  align-items: center;
+
   gap: 8px;
 `;

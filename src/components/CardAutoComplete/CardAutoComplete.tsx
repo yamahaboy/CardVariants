@@ -1,7 +1,7 @@
 import React, { BaseSyntheticEvent } from "react";
-import { Autocomplete, TextField } from "@mui/material";
+import { Autocomplete, Box, TextField } from "@mui/material";
 import { useAppSelector, useAppDispatch } from "../../store/store";
-import { setCard } from "../../store/reducers/Actions";
+import { setFilterCard } from "../../store/reducers/Actions";
 import { CardProps } from "../../models/CardProps";
 
 interface CardAutoCompleteProps {
@@ -22,16 +22,18 @@ const CardAutoComplete: React.FC<CardAutoCompleteProps> = (props) => {
     newValue: string | null
   ) => {
     setSelectedTitle(newValue);
-    dispatch(setCard(newValue));
+    dispatch(setFilterCard(newValue));
   };
 
   return (
-    <Autocomplete
-      options={titleNames}
-      value={selectedTitle}
-      onChange={handleNameChange}
-      renderInput={(params) => <TextField {...params} label="Find Card" />}
-    />
+    <Box sx={{ width: "20%" }}>
+      <Autocomplete
+        options={titleNames}
+        value={selectedTitle}
+        onChange={handleNameChange}
+        renderInput={(params) => <TextField {...params} label="Find Card" />}
+      />
+    </Box>
   );
 };
 

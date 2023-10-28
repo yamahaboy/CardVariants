@@ -17,6 +17,7 @@ import {
   GapContainer,
 } from "./styles";
 import CardPage from "../../components/CardPage/CardPage";
+import { IconButton } from "@mui/material";
 
 interface LikeIconProps {
   isLiked: boolean | null;
@@ -51,18 +52,22 @@ export const Card: React.FC<CardProps> = (props) => {
 
   const LikeIcon: React.FC<LikeIconProps> = ({ isLiked, onClick }) => {
     return (
-      <ThumbUpAltIcon
+      <IconButton
         onClick={onClick}
         style={{ color: isLiked === true ? "#fff700" : "#000" }}
-      />
+      >
+        <ThumbUpAltIcon />
+      </IconButton>
     );
   };
   const DisLikeIcon: React.FC<LikeIconProps> = ({ isLiked, onClick }) => {
     return (
-      <ThumbDownAltIcon
+      <IconButton
         onClick={onClick}
         style={{ color: isLiked === false ? "#fff700" : "#000" }}
-      />
+      >
+        <ThumbDownAltIcon />
+      </IconButton>
     );
   };
 
