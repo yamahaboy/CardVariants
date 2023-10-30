@@ -6,9 +6,10 @@ export const setCard = (cardData: CardProps[]) => {
 };
 
 export const likeCard = (likeCardData: CardProps[]) => {
-  return { type: CardsReducerEnum.LIKE_Card, likeCardData };
+  return { type: CardsReducerEnum.LIKE_Card, likeCard: likeCardData };
 };
 
-export const setFilterCard = (title: string | null) => {
+export const setFilterCard = (title: string) => {
+  console.log("Redux=>", title);
   return { type: CardsReducerEnum.SET_FILTER_CARD, title };
 };

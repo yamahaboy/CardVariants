@@ -9,7 +9,7 @@ import { Box } from "@mui/material";
 
 export const CardList: React.FC = () => {
   const likedCards = useAppSelector((state) => state.cardReducer.likeCard);
-  const cardOfDates = useAppSelector((state) => state.cardReducer.card) || [];
+  const cardOfDates = useAppSelector((state) => state.cardReducer.card);
   const selectedTitle = useAppSelector((state) => state.cardReducer.filterCard);
   const dispatch = useAppDispatch();
   const cardData = datesForCards();
@@ -33,26 +33,31 @@ export const CardList: React.FC = () => {
     dispatch(setCard(cardData));
   }, [dispatch]);
 
+  useEffect(() => {
+    console.log(selectedTitle, "Title");
+  }, [selectedTitle]);
+
   return (
     <Box sx={{ backgroundColor: "#cfcfcf" }}>
       <Header />
       <CardListContainer>
-        {/* {cardOfDates &&
+        {cardOfDates &&
           cardOfDates
             .filter((card) => !selectedTitle || card.title === selectedTitle)
             .map((card) => (
               <Card
                 key={card.id}
-                id={card.id}
-                title={card.title}
-                imgSrc={card.imgSrc}
-                text={card.text}
-                variant={card.variant}
-                isLiked={card.isLiked}
-                setIsLiked={handleLikeControl}
+                card={{ ...card, setIsLiked: handleLikeControl }}
+                // id={card.id}
+                // title={card.title}
+                // imgSrc={card.imgSrc}
+                // text={card.text}
+                // variant={card.variant}
+                // isLiked={card.isLiked}
+                // setIsLiked={handleLikeControl}
               />
-            ))} */}
-        {cardOfDates.map((card) => (
+            ))}
+        {/* {cardOfDates.map((card) => (
           <Card
             key={card.id}
             id={card.id}
@@ -63,7 +68,7 @@ export const CardList: React.FC = () => {
             isLiked={card.isLiked}
             setIsLiked={handleLikeControl}
           />
-        ))}
+        ))} */}
       </CardListContainer>
     </Box>
   );

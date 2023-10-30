@@ -29,8 +29,12 @@ interface BookIconProps {
   onClick: () => void;
 }
 
-export const Card: React.FC<CardProps> = (props) => {
-  const { id, title, imgSrc, text, variant, isLiked, setIsLiked } = props;
+interface Props {
+  card: CardProps;
+}
+
+export const Card: React.FC<Props> = ({ card }) => {
+  const { id, title, imgSrc, text, variant, isLiked, setIsLiked } = card;
 
   const [isBookmarked, setIsBookmarked] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);

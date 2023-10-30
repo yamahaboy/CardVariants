@@ -13,7 +13,7 @@ import DrawerMenu from "../Drawer/Drawer";
 export const Header = () => {
   const navigateToHomePage = useNavigate();
   const location = useLocation();
-  const [selectedTitle, setSelectedTitle] = useState<string | null>(null);
+
   const [isDrawerOpen, setisDrawerOpen] = useState(false);
 
   const handleBackHomePage = () => {
@@ -34,10 +34,7 @@ export const Header = () => {
       </IconButton>
       <DrawerMenu isOpen={isDrawerOpen} onClose={handleDrawerIsClose} />
 
-      <CardAutoComplete
-        selectedTitle={selectedTitle}
-        setSelectedTitle={setSelectedTitle}
-      />
+      <CardAutoComplete />
       <NavLink to={ROUTES.Featured}>
         <Box
           sx={{
