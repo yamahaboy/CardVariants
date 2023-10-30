@@ -1,19 +1,18 @@
 import { datesForCards } from "../../../dates/datesForCard";
 import { Card } from "../../../containers/Card/Card";
 import { CardListContainer } from "./styles";
-import { useEffect, useState } from "react";
-import { CardProps } from "../../../models/CardProps";
+import { useEffect } from "react";
 import { Header } from "../../../components/Header/Header";
 import { useAppDispatch, useAppSelector } from "../../../store/store";
-import { likeCard } from "../../../store/reducers/Actions";
+import { likeCard, setCard } from "../../../store/reducers/Actions";
 import { Box } from "@mui/material";
 
 export const CardList: React.FC = () => {
   const likedCards = useAppSelector((state) => state.cardReducer.likeCard);
+  const cardOfDates = useAppSelector((state) => state.cardReducer.card) || [];
+  const selectedTitle = useAppSelector((state) => state.cardReducer.filterCard);
   const dispatch = useAppDispatch();
   const cardData = datesForCards();
-
-  const [cards, setCards] = useState<CardProps[]>([]);
 
   const handleLikeControl = (cardId: number, newLikeValue: boolean) => {
     if (newLikeValue) {
@@ -31,14 +30,29 @@ export const CardList: React.FC = () => {
   };
 
   useEffect(() => {
-    setCards(cardData);
-  }, []);
+    dispatch(setCard(cardData));
+  }, [dispatch]);
 
   return (
     <Box sx={{ backgroundColor: "#cfcfcf" }}>
       <Header />
       <CardListContainer>
-        {cards.map((card) => (
+        {/* {cardOfDates &&
+          cardOfDates
+            .filter((card) => !selectedTitle || card.title === selectedTitle)
+            .map((card) => (
+              <Card
+                key={card.id}
+                id={card.id}
+                title={card.title}
+                imgSrc={card.imgSrc}
+                text={card.text}
+                variant={card.variant}
+                isLiked={card.isLiked}
+                setIsLiked={handleLikeControl}
+              />
+            ))} */}
+        {cardOfDates.map((card) => (
           <Card
             key={card.id}
             id={card.id}

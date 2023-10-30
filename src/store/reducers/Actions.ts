@@ -12,7 +12,3 @@ export const likeCard = (likeCardData: CardProps[]) => {
 export const setFilterCard = (title: string | null) => {
   return { type: CardsReducerEnum.SET_FILTER_CARD, title };
 };
-export const removeLikedCard = (cardId: number) => ({
-  type: CardsReducerEnum.REMOVE_LIKED_CARD,
-  payload: cardId,
-});

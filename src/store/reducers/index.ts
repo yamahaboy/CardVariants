@@ -3,12 +3,12 @@ import { CardProps } from "../../models/CardProps";
 import { CardsReducerEnum } from "./ActionsType";
 
 type CardReducerType = {
-  card: CardProps[] | null;
+  card: CardProps[];
   likeCard: CardProps[];
   filterCard: CardProps[] | null;
 };
 const defaultState: CardReducerType = {
-  card: null,
+  card: [],
   likeCard: [],
   filterCard: null,
 };
@@ -21,14 +21,9 @@ const cardReducer: Reducer<CardReducerType> = (
     case CardsReducerEnum.SET_CARD:
       return { ...state, card: action.cardData };
     case CardsReducerEnum.LIKE_Card:
-      return { ...state, likeCard: action.likeCardData };
+      return { ...state, likeCard: state.likeCard.concat(action.likeCardData) };
     case CardsReducerEnum.SET_FILTER_CARD:
       return { ...state, likeCard: action.title };
-    case CardsReducerEnum.REMOVE_LIKED_CARD:
-      return {
-        ...state,
-        likeCard: [...state.likeCard, ...action.likeCardData],
-      };
     default:
       return { ...state };
   }
