@@ -2,14 +2,13 @@ import React, { BaseSyntheticEvent, useState } from "react";
 import { Autocomplete, Box, TextField } from "@mui/material";
 import { useAppSelector, useAppDispatch } from "../../store/store";
 import { setFilterCard } from "../../store/reducers/Actions";
-import { CardProps } from "../../models/CardProps";
 
 const CardAutoComplete: React.FC = () => {
   const dispatch = useAppDispatch();
 
-  const cards: CardProps[] = useAppSelector((state) => state.cardReducer.card);
+  const {posts} = useAppSelector((state) => state.cardReducer);
 
-  const titleNames: string[] = cards ? cards.map((card) => card.title) : [];
+  const titleNames: string[] = posts ? posts.map((post) => post.title) : [];
 
   const [selectedTitle, setSelectedTitle] = useState<string | null>(null);
 
@@ -21,7 +20,6 @@ const CardAutoComplete: React.FC = () => {
   ) => {
     const newValue = event.target.value;
     setSelectedTitle(Value2);
-    console.log("NewValue", newValue, "=>", Value2);
   };
 
   const handleAutoCompleteInputChange = (
@@ -30,10 +28,9 @@ const CardAutoComplete: React.FC = () => {
   ) => {
     setFindInput(newInputValue);
     dispatch(setFilterCard(newInputValue));
-    console.log("newInputValue=>", newInputValue);
   };
   return (
-    <Box sx={{ width: "20%" }}>
+    <Box sx={{ width: "40%" }}>
       <Autocomplete
         options={titleNames}
         value={selectedTitle}

@@ -1,75 +1,125 @@
-import { datesForCards } from "../../../dates/datesForCard";
 import { Card } from "../../../containers/Card/Card";
 import { CardListContainer } from "./styles";
-import { useEffect } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Header } from "../../../components/Header/Header";
 import { useAppDispatch, useAppSelector } from "../../../store/store";
-import { likeCard, setCard } from "../../../store/reducers/Actions";
+import {
+  getPostsUsersToStore,
+  likeCard,
+} from "../../../store/reducers/Actions";
 import { Box } from "@mui/material";
+import { CardSize, ImgSize } from "../../../models/CardSize";
+import UserList from "../../../containers/userList/UserList";
 
 export const CardList: React.FC = () => {
-  const likedCards = useAppSelector((state) => state.cardReducer.likeCard);
-  const cardOfDates = useAppSelector((state) => state.cardReducer.card);
-  const selectedTitle = useAppSelector((state) => state.cardReducer.filterCard);
+  const { posts, likeCards, filterCard, userFilter } = useAppSelector(
+    (state) => state.cardReducer
+  );
   const dispatch = useAppDispatch();
-  const cardData = datesForCards();
 
-  const handleLikeControl = (cardId: number, newLikeValue: boolean) => {
-    if (newLikeValue) {
-      const findLikedCard = cardData.find((card) => card.id === cardId);
-      const checkOnDuplication = likedCards.some((card) => card.id === cardId);
+  const filterBlog = posts.filter((post) => {
+    return userFilter === null || post.userId === userFilter;
+  });
 
-      if (findLikedCard && !checkOnDuplication) {
-        const updatedLikeCard = [...likedCards, findLikedCard];
+  // const handleLikeControl = (postId: number, newLikeValue: boolean) => {
+  //   if (newLikeValue) {
+  //     const findLikedCard = posts.find((post) => post.id === postId);
+  //     const checkOnDuplication = likeCards.some((post) => post.id === postId);
+
+  //     if (findLikedCard && !checkOnDuplication) {
+  //       const updatedLikeCard = [...likeCards, findLikedCard];
+  //       dispatch(likeCard(updatedLikeCard));
+  //     }
+  //   } else {
+  //     const updatedLikeCard = likeCards.filter((post) => post.id !== postId);
+  //     dispatch(likeCard(updatedLikeCard));
+  //   }
+  // };
+  const handleLikeControl = (postId: number, newLikeValue: boolean) => {
+    const findLikedCard = posts.find((post) => post.id === postId);
+    const checkOnDuplication = likeCards.some((likedCard) => likedCard.id === postId);
+  
+    if (findLikedCard) {
+      const { cardSize, imgSize } = randomCardSizes[postId] || {};
+      const likedCardWithDetails = {
+        ...findLikedCard,
+        variant: cardSize,
+        imgSize,
+      };
+  
+      if (newLikeValue && !checkOnDuplication) {
+        const updatedLikeCard = [...likeCards, likedCardWithDetails];
+        dispatch(likeCard(updatedLikeCard));
+      } else {
+        const updatedLikeCard = likeCards.filter((likedCard) => likedCard.id !== postId);
         dispatch(likeCard(updatedLikeCard));
       }
-    } else {
-      const updatedLikeCard = likedCards.filter((card) => card.id !== cardId);
-      dispatch(likeCard(updatedLikeCard));
     }
   };
+  
+
+  const randomCardSizes: Record<
+    number,
+    { cardSize: CardSize; imgSize: ImgSize }
+  > = useMemo(() => {
+    const calculatedSizes: Record<
+      number,
+      { cardSize: CardSize; imgSize: ImgSize }
+    > = {};
+    posts.forEach((post) => {
+      const cardSizes = Object.values(CardSize);
+      const randomIndex = Math.floor(Math.random() * cardSizes.length);
+      const randomCardSize = cardSizes[randomIndex];
+
+      const imgSize =
+        randomCardSize === CardSize.Large ? ImgSize.Large : ImgSize.Medium;
+
+      calculatedSizes[post.id] = { cardSize: randomCardSize, imgSize };
+    });
+
+    return calculatedSizes;
+  }, [posts]);
 
   useEffect(() => {
-    dispatch(setCard(cardData));
+    dispatch(getPostsUsersToStore());
   }, [dispatch]);
-
-  useEffect(() => {
-    console.log(selectedTitle, "Title");
-  }, [selectedTitle]);
 
   return (
     <Box sx={{ backgroundColor: "#cfcfcf" }}>
       <Header />
-      <CardListContainer>
-        {cardOfDates &&
-          cardOfDates
-            .filter((card) => !selectedTitle || card.title === selectedTitle)
-            .map((card) => (
-              <Card
-                key={card.id}
-                card={{ ...card, setIsLiked: handleLikeControl }}
-                // id={card.id}
-                // title={card.title}
-                // imgSrc={card.imgSrc}
-                // text={card.text}
-                // variant={card.variant}
-                // isLiked={card.isLiked}
-                // setIsLiked={handleLikeControl}
-              />
-            ))}
-        {/* {cardOfDates.map((card) => (
-          <Card
-            key={card.id}
-            id={card.id}
-            title={card.title}
-            imgSrc={card.imgSrc}
-            text={card.text}
-            variant={card.variant}
-            isLiked={card.isLiked}
-            setIsLiked={handleLikeControl}
-          />
-        ))} */}
-      </CardListContainer>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-between",
+        }}
+      >
+        <CardListContainer>
+          {filterBlog &&
+            filterBlog
+              .filter((post) => !filterCard || post.title === filterCard)
+              .map((post) => {
+                const { cardSize, imgSize } = randomCardSizes[post.id] || {};
+                return (
+                  <Card
+                    key={post.id}
+                    post={{
+                      userId: post.id,
+                      id: post.id,
+                      title: post.title,
+                      imgSrc: `https://random.imagecdn.app${imgSize}`,
+                      body: post.body,
+                      variant: cardSize,
+                      isLiked: post.isLiked,
+                      setIsLiked: (postId, isLiked) =>
+                        handleLikeControl(postId, isLiked),
+                    }}
+                  />
+                );
+              })}
+        </CardListContainer>
+        <UserList />
+      </Box>
     </Box>
   );
 };

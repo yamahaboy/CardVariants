@@ -6,7 +6,7 @@ export const StyledCard = styled.div<{
   width: ${({ variant }) =>
     variant === "large" ? "600px" : variant === "medium" ? "400px" : "300px"};
   height: ${({ variant }) =>
-    variant === "large" ? "240px" : variant === "medium" ? "260px" : "120px"};
+    variant === "large" ? "240px" : variant === "medium" ? "290px" : "120px"};
   background-color: #e9e9e9;
   border: 1px solid #808080;
   border-radius: 5px;

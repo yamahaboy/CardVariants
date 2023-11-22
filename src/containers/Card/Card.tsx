@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { CardProps } from "../../models/CardProps";
+import { PostProps } from "../../models/CardProps";
 import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
 import ThumbDownAltIcon from "@mui/icons-material/ThumbDownAlt";
 import BookmarksIcon from "@mui/icons-material/Bookmarks";
@@ -17,7 +17,8 @@ import {
   GapContainer,
 } from "./styles";
 import CardPage from "../../components/CardPage/CardPage";
-import { IconButton } from "@mui/material";
+import { Badge, IconButton } from "@mui/material";
+import { useAppSelector } from "../../store/store";
 
 interface LikeIconProps {
   isLiked: boolean | null;
@@ -30,11 +31,12 @@ interface BookIconProps {
 }
 
 interface Props {
-  card: CardProps;
+  post: PostProps;
 }
 
-export const Card: React.FC<Props> = ({ card }) => {
-  const { id, title, imgSrc, text, variant, isLiked, setIsLiked } = card;
+export const Card: React.FC<Props> = ({ post }) => {
+  const { id, title, imgSrc, body, variant, isLiked, setIsLiked } = post;
+  const { comments } = useAppSelector((state) => state.cardReducer);
 
   const [isBookmarked, setIsBookmarked] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -53,6 +55,8 @@ export const Card: React.FC<Props> = ({ card }) => {
   const hableClickCloseModal = () => {
     setIsModalOpen(false);
   };
+
+  const postComments = comments.filter((comment) => comment.postId === id);
 
   const LikeIcon: React.FC<LikeIconProps> = ({ isLiked, onClick }) => {
     return (
@@ -105,11 +109,12 @@ export const Card: React.FC<Props> = ({ card }) => {
             </p>
           </DateNow>
           <CardTitle variant={variant}>{title}</CardTitle>
-          {variant === "large" && <CardText>{text}</CardText>}
+          {variant === "large" && <CardText>{body}</CardText>}
         </CardInfoContainer>
         <CardImage variant={variant} onClick={hableClickOpenModal}>
           <Img src={imgSrc} variant={variant} />
         </CardImage>
+        <Badge color="primary" badgeContent={postComments.length} max={99} />
       </CardContainer>
       <ButtonBlock>
         <GapContainer>
@@ -128,6 +133,8 @@ export const Card: React.FC<Props> = ({ card }) => {
         open={isModalOpen}
         onClose={hableClickCloseModal}
         imageSrc={imgSrc}
+        postId={id}
+        comments={comments}
       />
     </StyledCard>
   );
